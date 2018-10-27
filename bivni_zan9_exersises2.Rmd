@@ -1,8 +1,10 @@
 ---
-title: "data manipulation 1  тренировочные упражнения 2"
+title: "data manipulation 1  С‚СЂРµРЅРёСЂРѕРІРѕС‡РЅС‹Рµ СѓРїСЂР°Р¶РЅРµРЅРёСЏ 2"
 author: "Ilya Kochergin"
-date: '24 марта 2016 г '
-output: html_document
+date: '24 РјР°СЂС‚Р° 2016 Рі '
+output:
+  word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -14,11 +16,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r,include=F }
-file.exists("data") || dir.create("data") 
+dir.exists("data") || dir.create("data") 
 ```
 
 ```{r,cache=TRUE}
-url_world_data <- "http://crow.academy.ru/~ikocherg/stud_do/2015vesna/world.txt.zip"
+url_world_data <- "https://github.com/bivni/r-data-manipulation/raw/master/world.txt.zip"
 file.exists("data/world.txt.zip") || download.file(url_world_data,destfile = "data/world.txt.zip")
 unzip("data/world.txt.zip",exdir = "data")
 ```
@@ -71,9 +73,9 @@ anti_join(x = country_t,y=city_t,by="CountryCode") %>%
 Выдать названия регионов Европы, где есть города с населением более 7 миллионов и укажите количество таких городов.
 Ожидаемый вывод:
 ```{r,echo=F}
-country_t %>% 
-  filter(Continent=="Europe") %>% 
-  inner_join(city_t %>% filter(Population>7e6), by="CountryCode") %>% 
+
+  filter(country_t,Continent=="Europe") %>% 
+  inner_join(x=.,city_t %>% filter(Population>7e6), by="CountryCode") %>% 
   group_by(Region ) %>% 
   summarize(count=n())
    
