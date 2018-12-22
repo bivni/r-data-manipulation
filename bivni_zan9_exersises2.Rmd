@@ -1,7 +1,7 @@
 ---
-title: "data manipulation 1  С‚СЂРµРЅРёСЂРѕРІРѕС‡РЅС‹Рµ СѓРїСЂР°Р¶РЅРµРЅРёСЏ 2"
+title: "data manipulation 1  практика  2"
 author: "Ilya Kochergin"
-date: '24 РјР°СЂС‚Р° 2016 Рі '
+date: '24 сент 2016 года '
 output:
   word_document: default
   html_document: default
