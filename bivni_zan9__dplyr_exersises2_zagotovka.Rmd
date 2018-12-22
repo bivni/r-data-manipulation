@@ -44,8 +44,8 @@ library(dplyr)
 Преобразуем фреймы данных в усовершенствованные (local data frame), которые поддерживает пакет dplyr.
 
 ```{r}
-city_t <- tbl_df(city)
-country_t <- tbl_df(country)
+city_t <- city
+country_t <- country
 ```
 
 
@@ -57,6 +57,74 @@ country_t <- tbl_df(country)
 city_t
 country_t
 ```
+
+
+## Примеры 
+
+
+Выдать города, начинающиеся с "A" (лат) из России
+
+```{r}
+
+city_t %>% filter(grepl('^A', Name),CountryCode=='RUS')
+
+```
+
+
+```{r}
+
+city_t %>% filter(stringr::str_detect( Name, '^A') & CountryCode=='RUS')
+
+```
+
+
+Кроме CountryCode
+
+
+```{r}
+
+city_t %>% 
+  filter(stringr::str_detect( Name, '^A') &
+           CountryCode=='RUS') %>% 
+  select(-c(CountryCode,CityID))
+
+```
+
+```{r}
+
+city_t %>% 
+  filter(stringr::str_detect( Name, '^A') &
+           CountryCode=='RUS') %>% 
+  select(-starts_with("C")) %>% 
+  arrange(desc(Population))
+```
+
+
+Сколько в России городов с населением более 200000 в каждом District
+
+```{r}
+city_t %>% 
+  filter(Population> 200000 &
+           CountryCode=='RUS') %>% 
+  select(-starts_with("C")) %>% 
+  group_by(District) %>% dplyr::summarise(kolvo=n() ) %>% 
+  filter(kolvo>1) %>% 
+  arrange(desc(kolvo))
+  
+  
+```
+
+Пример
+
+Города с населением более милиона на континенте Europe
+
+```{r}
+  inner_join(x=city_t, y=country_t, by="CountryCode") %>% 
+  filter(Population.x>2e6,Continent=='Europe') 
+```
+
+
+
 
 ## Практические задания
 
