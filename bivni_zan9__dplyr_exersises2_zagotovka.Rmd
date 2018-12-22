@@ -18,16 +18,19 @@ file.exists("data") || dir.create("data")
 ```
 
 ```{r,cache=TRUE}
-url_world_data <- "http://crow.academy.ru/~ikocherg/stud_do/2015vesna/world.txt.zip"
-file.exists("data/world.txt.zip") || download.file(url_world_data,destfile = "data/world.txt.zip")
+url_world_data <- "https://github.com/bivni/r-data-manipulation/raw/master/world.txt.zip"
+file.exists("data/world.txt.zip") || download.file(url_world_data,destfile = "data/world.txt.zip",mode = "wb")
 unzip("data/world.txt.zip",exdir = "data")
 ```
 
+```{r load_tidyverse, message=FALSE}
+library(tidyverse)
+```
 
 
 ```{r,cache=TRUE}
-city <- read.csv2("data/city.txt",as.is=T)
-country <- read.csv2("data/country.txt",as.is=T)
+city <- read_csv2("data/city.txt")
+country <- read_csv2("data/country.txt")
 ```
 
 
